@@ -1,5 +1,5 @@
 /**
-* Package for clculate task.
+* Package for calculate task.
 * @author Andrey Sigachev (andrejjsigachev@gmail.com)
 * @version $Id$
 * @since 0.1
