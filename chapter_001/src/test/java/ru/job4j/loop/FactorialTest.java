@@ -13,8 +13,14 @@ import static org.junit.Assert.assertThat;
 public class FactorialTest {
 
 	@Test
-	public void WhenTenThen120() {
+	public void WhenTenThen3628800() {
 		Factorial calc = new Factorial();
-		assertThat(calc.calc(10), is(120));
+		assertThat(calc.calc(10), is(3628800));
+	}
+
+	@Test
+	public void WhenZeroThenOne() {
+		Factorial calc = new Factorial();
+		assertThat(calc.calc(0), is(1));
 	}
 }
