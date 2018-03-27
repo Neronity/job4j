@@ -13,7 +13,6 @@ public class WordContaining {
      */
     public boolean containWord(String origin, String sub) {
 		boolean result = false;
-		//boolean subResult = true;
 		char[] originChars = origin.toCharArray();
 		char[] subChars = sub.toCharArray();
 		for (int outer = 0; outer <= originChars.length - subChars.length + 1; outer++) {
