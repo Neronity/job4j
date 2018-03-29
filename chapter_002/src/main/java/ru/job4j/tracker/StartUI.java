@@ -104,7 +104,7 @@ public class StartUI {
         System.out.println("------------ Добавление новой языки --------------");
         String name = input.ask("Введите имя заявки :");
         String desc = input.ask("Введите описание заявки :");
-        Item item = new Item (name, desc, null);
+        Item item = new Item(name, desc, null);
         tracker.add(item);
         System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------\n");
     }
@@ -155,7 +155,7 @@ public class StartUI {
     * Вывод списка всех заявок
     */
     private void getAllItems() {
-        for(Item item : tracker.getAll()) {
+        for (Item item : tracker.getAll()) {
             System.out.println("Имя: " + item.getName() + " ID " + item.getId());
         }
         System.out.println("");
