@@ -23,9 +23,11 @@ public class Tracker {
      * @param item новая заявка
      * @return
      */
-    public void add(Item item) {
-        item.setId(this.generateId());
+    public String add(Item item) {
+        String id = this.generateId();
+        item.setId(id);
         items[position++] = item;
+        return id;
     }
 
     /**
@@ -43,13 +45,16 @@ public class Tracker {
      */
     public void delete(String id) {
         int index = getItemIndex(id);
-        for (int i = index; i <= position; i++) {
-            if (i == position) {
+        for (int i = index; i < position; i++) {
+            if (i == position - 1) {
                 items[i] = null;
+                position -= 1;
+                break;
             } else {
                 items[i] = items[i + 1];
             }
         }
+
     }
 
     /**
