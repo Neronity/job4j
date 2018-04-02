@@ -34,9 +34,8 @@ public class TrackerTest {
     	tracker.add(item2);
     	Item item3 = new Item("test3", "testDesc3", "12345L");
     	tracker.add(item3);
-    	String tmpId = item3.getId();
     	tracker.delete(item2.getId());
-    	assertThat(tracker.items[1].getId(), is(tmpId));
+    	assertThat(tracker.getAll().length, is(2));
     }
 
     @Test
