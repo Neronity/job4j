@@ -100,19 +100,19 @@ public class StartUI {
     /**
      * Метод реализует добавление новый заявки в хранилище.
      */
-    private void createItem() {
-        System.out.println("------------ Добавление новой языки --------------");
+    public void createItem() {
+        System.out.println("------------ Добавление новой заявки --------------");
         String name = input.ask("Введите имя заявки :");
         String desc = input.ask("Введите описание заявки :");
         Item item = new Item(name, desc, null);
         tracker.add(item);
-        System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------\n");
+        System.out.println("------------ Новая заявка с ID : " + item.getId() + "-----------\n");
     }
 
     /**
     * Замена существующей заявки на новую
     */
-    private void replaceItem() {
+    public void replaceItem() {
         System.out.println("------------ Замена существующей заявки --------------");
         String id = input.ask("Введите уникальный ID заявки, которую хотите заменить:");
         String name = input.ask("Введите имя новой заявки :");
@@ -125,7 +125,7 @@ public class StartUI {
     /**
     * Удаление сущесвтующей заявки
     */
-    private void deleteItem() {
+    public void deleteItem() {
         System.out.println("------------ Удаление существующей заявки --------------");
         String id = input.ask("Введите уникальный ID заявки, которую хотите удалить:");
         tracker.delete(id);
@@ -136,7 +136,7 @@ public class StartUI {
     /**
     * Поиск заявки по ID
     */
-    private void findItemById() {
+    public void findItemById() {
         System.out.println("------------ Поиск заявки по ID --------------");
         String id = input.ask("Введите уникальный ID заявки, которую хотите найти:");
         showItemInfo(tracker.findById(id));
@@ -145,7 +145,7 @@ public class StartUI {
     /**
     * Поиск заявки по имени
     */
-    private void findItemByName() {
+    public void findItemByName() {
         System.out.println("------------ Поиск заявки по имени --------------");
         String name = input.ask("Введите полное имя заявки, которую хотите найти:");
         showItemInfo(tracker.findByName(name));
@@ -154,30 +154,30 @@ public class StartUI {
     /**
     * Вывод списка всех заявок
     */
-    private void getAllItems() {
+    public void getAllItems() {
         for (Item item : tracker.getAll()) {
-            System.out.println("Имя: " + item.getName() + " ID " + item.getId());
+            System.out.println("Имя: " + item.getName() + " ID " + item.getId() + "\n");
         }
-        System.out.println("");
     }
 
     /*
     * Отображение меню для пользователя
     */
-    private void showMenu() {
+    public void showMenu() {
         System.out.println("Меню.");
         System.out.println("0. Создать заявку");
         System.out.println("1. Заменить заявку");
         System.out.println("2. Удалить заявку");
         System.out.println("3. Поиск по ID заявки");
         System.out.println("4. Поиск по имени заявки");
-        System.out.println("5. Список всех заявок\n");
+        System.out.println("5. Список всех заявок");
+        System.out.println("6. Выйти");
     }
 
     /**
     * Вывод информации о заявке на экран
     */
-    private void showItemInfo(Item item) {
+    public void showItemInfo(Item item) {
         System.out.println("------------ Имя заявки --------------\n" + item.getName());
         System.out.println("------------ Описание заявки --------------\n" + item.getDesc());
         System.out.println("Уникальный ID: " + item.getId() + "\n");
