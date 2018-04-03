@@ -32,4 +32,13 @@ public class Item {
 	public String getDesc() {
 		return desc;
 	}
+
+	/**
+	 * Отображение информации о заявке для поиска по Id и имени
+	 */
+	public void showItemInfo() {
+		System.out.println("------------ Имя заявки --------------\n" + this.name);
+		System.out.println("------------ Описание заявки --------------\n" + this.desc);
+		System.out.println("Уникальный ID: " + this.id + "\n");
+	}
 }
