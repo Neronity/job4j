@@ -37,9 +37,13 @@ public class StartUI {
     public void init() {
         Menu menu = new Menu(input, tracker);
         menu.fillActions();
+        int[] actions = new int[menu.actions.length];
+        for (int index = 0; index < menu.actions.length; index++) {
+            actions[index] = menu.actions[index].key();
+        }
         do {
             menu.show();
-            menu.select(input.ask("Select action: "));
+            menu.select(input.ask("Выберите действие: ", actions));
         } while (!exit);
     }
 
@@ -48,6 +52,6 @@ public class StartUI {
      * Запуск программы.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }

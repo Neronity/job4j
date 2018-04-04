@@ -2,8 +2,8 @@ package ru.job4j.tracker;
 
 
 public class GetAllItems implements UserAction {
-	public String key() {
-			return "5";
+	public int key() {
+			return 5;
 	}
 
 	public void execute(Input input, Tracker tracker) {

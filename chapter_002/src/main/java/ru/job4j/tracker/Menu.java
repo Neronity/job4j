@@ -8,7 +8,7 @@ public class Menu {
 	/**
 	 * Массив с действиями
 	 */
-	private UserAction[] actions = new UserAction[7];
+	public UserAction[] actions = new UserAction[7];
 
 	public Menu(Input input, Tracker tracker) {
 		this.input = input;
@@ -33,8 +33,8 @@ public class Menu {
 	 * Выполнение выбранного пользователем действия
 	 * @param key номер действия, которое нужно выполнить
 	 */
-	public void select(String key) {
-		actions[Integer.parseInt(key)].execute(input, tracker);
+	public void select(int key) {
+		actions[key].execute(input, tracker);
 	}
 
 	/**
@@ -50,8 +50,8 @@ public class Menu {
 	 * Добавление элемента
 	 */
 	private class AddItem implements UserAction {
-		public String key() {
-			return "0";
+		public int key() {
+			return 0;
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -72,8 +72,8 @@ public class Menu {
 	 * Замена существующей заявки на новую
 	 */
 	public static class ReplaceItem implements UserAction {
-		public String key() {
-			return "1";
+		public int key() {
+			return 1;
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -95,8 +95,8 @@ public class Menu {
 	 * Удаление сущесвтующей заявки
 	 */
 	private class DeleteItem implements UserAction {
-		public String key() {
-			return "2";
+		public int key() {
+			return 2;
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -115,8 +115,8 @@ public class Menu {
 	 * Поиск заявки по ID
 	 */
 	private class FindById implements UserAction {
-		public String key() {
-			return "3";
+		public int key() {
+			return 3;
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -134,8 +134,8 @@ public class Menu {
 	 * Поиск заявки по имени
 	 */
 	private class FindByName implements UserAction {
-		public String key() {
-			return "4";
+		public int key() {
+			return 4;
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -153,8 +153,8 @@ public class Menu {
 	 * Выход из программы
 	 */
 	private class Exit implements UserAction {
-		public String key() {
-			return "6";
+		public int key() {
+			return 6;
 		}
 
 		public void execute(Input input, Tracker tracker) {

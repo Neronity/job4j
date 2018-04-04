@@ -5,7 +5,7 @@ public interface UserAction {
 	/**
 	 * @return порядковый номер команды (число, которое вводит пользователь)
 	 */
-	String key();
+	int key();
 
 	/**
 	 * Выполнение события
