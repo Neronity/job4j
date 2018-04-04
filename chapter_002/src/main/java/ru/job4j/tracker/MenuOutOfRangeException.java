@@ -5,4 +5,8 @@ public class MenuOutOfRangeException extends RuntimeException {
 	public MenuOutOfRangeException(String message) {
 		System.out.println(message);
 	}
+
+	public MenuOutOfRangeException() {
+
+	}
 }
