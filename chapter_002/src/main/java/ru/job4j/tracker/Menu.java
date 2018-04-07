@@ -19,13 +19,13 @@ public class Menu {
 	 * Заполнение массива действий
 	 */
 	public void fillActions() {
-		actions[0] = new AddItem();
-		actions[1] = new Menu.ReplaceItem();
-		actions[2] = new DeleteItem();
-		actions[3] = new FindById();
-		actions[4] = new FindByName();
-		actions[5] = new GetAllItems();
-		actions[6] = new Exit();
+		actions[0] = new AddItem(0, "Создать заявку");
+		actions[1] = new Menu.ReplaceItem(1, "Заменить заявку");
+		actions[2] = new DeleteItem(2, "Удалить заявку");
+		actions[3] = new FindById(3, "Поиск по ID заявки");
+		actions[4] = new FindByName(4, "Поиск по имени заявки");
+		actions[5] = new GetAllItems(5, "Список всех заявок");
+		actions[6] = new Exit(6, "Выйти");
 
 	}
 
@@ -49,9 +49,10 @@ public class Menu {
 	/**
 	 * Добавление элемента
 	 */
-	private class AddItem implements UserAction {
-		public int key() {
-			return 0;
+	private class AddItem extends BaseAction {
+
+		public AddItem(int key, String name) {
+			super(key, name);
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -62,18 +63,15 @@ public class Menu {
         	tracker.add(item);
         	System.out.println("------------ Новая заявка с ID : " + item.getId() + "-----------\n");
 		}
-
-		public String info() {
-			return String.format("%s. %s", key(), "Создать заявку");
-		}
 	}
 
 	/**
 	 * Замена существующей заявки на новую
 	 */
-	public static class ReplaceItem implements UserAction {
-		public int key() {
-			return 1;
+	public static class ReplaceItem extends BaseAction {
+
+		public ReplaceItem(int key, String name) {
+			super(key, name);
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -85,18 +83,15 @@ public class Menu {
         	tracker.replace(id, item);
         	System.out.println("------------ Заявка успешно заменена -----------\n");
 		}
-
-		public String info() {
-			return String.format("%s. %s", key(), "Заменить заявку");
-		}
 	}
 
 	/**
 	 * Удаление сущесвтующей заявки
 	 */
-	private class DeleteItem implements UserAction {
-		public int key() {
-			return 2;
+	private class DeleteItem extends BaseAction {
+
+		public DeleteItem(int key, String name) {
+			super(key, name);
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -105,18 +100,15 @@ public class Menu {
         	tracker.delete(id);
         	System.out.println("------------ Заявка успешно удалена -----------\n");
 		}
-
-		public String info() {
-			return String.format("%s. %s", key(), "Удалить заявку");
-		}
 	}
 
 	/**
 	 * Поиск заявки по ID
 	 */
-	private class FindById implements UserAction {
-		public int key() {
-			return 3;
+	private class FindById extends BaseAction {
+
+		public FindById(int key, String name) {
+			super(key, name);
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -124,18 +116,15 @@ public class Menu {
         	String id = input.ask("Введите уникальный ID заявки, которую хотите найти:");
         	tracker.findById(id).showItemInfo();
 		}
-
-		public String info() {
-			return String.format("%s. %s", key(), "Поиск по ID заявки");
-		}
 	}
 
 	/**
 	 * Поиск заявки по имени
 	 */
-	private class FindByName implements UserAction {
-		public int key() {
-			return 4;
+	private class FindByName extends BaseAction {
+
+		public FindByName(int key, String name) {
+			super(key, name);
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -143,18 +132,15 @@ public class Menu {
         	String name = input.ask("Введите полное имя заявки, которую хотите найти:");
         	tracker.findByName(name).showItemInfo();
 		}
-
-		public String info() {
-			return String.format("%s. %s", key(), "Поиск по имени заявки");
-		}
 	}
 
 	/**
 	 * Выход из программы
 	 */
-	private class Exit implements UserAction {
-		public int key() {
-			return 6;
+	private class Exit extends BaseAction {
+
+		public Exit(int key, String name) {
+			super(key, name);
 		}
 
 		public void execute(Input input, Tracker tracker) {
@@ -162,10 +148,6 @@ public class Menu {
 			if ("y".equals(answer)) {
 				StartUI.exit = true;
 			}
-		}
-
-		public String info() {
-			return String.format("%s. %s", key(), "Выйти");
 		}
 	}
 }
