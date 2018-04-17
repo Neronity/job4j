@@ -10,6 +10,7 @@ public class Board {
 
     /**
      * Добавление новой фигуры на доску
+     *
      * @param figure фигура, которую добавляем на доску
      */
     public void add(Figure figure) {
@@ -21,6 +22,7 @@ public class Board {
 
     /**
      * Поиск индекса фигуры по source клетке
+     *
      * @cell клетка, на которой стоит фигура
      */
     private int indexOf(Cell cell) {
@@ -37,7 +39,8 @@ public class Board {
 
     /**
      * Движение фигуры из одной клетки в другую
-     * @param source клетка, из которой осуществляется ход
+     *
+     * @param source      клетка, из которой осуществляется ход
      * @param destination
      */
     public void move(Cell source, Cell destination) {
@@ -56,11 +59,12 @@ public class Board {
 
     /**
      * Проверка хода, который пытается сделать фигура
-     * @param source клетка, из которой осуществляется ход
+     *
+     * @param source      клетка, из которой осуществляется ход
      * @param destination клетка, в которую перемещаяется фигура
      * @return индекс фигуры в массиве Board.figures, которая будет перемещаться
      * @throws ImpossibleMoveException Фигура на указанной клетке не может ходить по назначенному пути
-     * @throws OccupiedWayException На пути фигуры есть другая фигура (не применимо к фигуре "Конь")
+     * @throws OccupiedWayException    На пути фигуры есть другая фигура (не применимо к фигуре "Конь")
      * @throws FigureNotFoundException На клетке source нет никакой фигуры
      */
     private int checkMove(Cell source, Cell destination) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
@@ -84,6 +88,7 @@ public class Board {
 
     /**
      * Проверка на занятость выбранной клетки
+     *
      * @param position клетка, которая проверяется на занятость
      * @return true/false
      */

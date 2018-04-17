@@ -11,7 +11,8 @@ public class Bishop extends Figure {
 
     /**
      * Движения фигуры
-     * @param source клетка, из которой осуществляется ход
+     *
+     * @param source      клетка, из которой осуществляется ход
      * @param destination клетка, в которую перемещаяется фигура
      * @return массив клеток, по которым проходит фигура
      * @throws ImpossibleMoveException фигура не может совершить переход в указнную клетку
@@ -37,6 +38,7 @@ public class Bishop extends Figure {
 
     /**
      * Создание копии для осуществления перемещения
+     *
      * @param destination клетка, в которую перемещаяется фигура
      * @return новую фигуру
      */

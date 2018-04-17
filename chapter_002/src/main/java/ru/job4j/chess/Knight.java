@@ -10,8 +10,7 @@ public class Knight extends Figure {
     }
 
     /**
-     *
-     * @param source клетка, из которой осуществляется ход
+     * @param source      клетка, из которой осуществляется ход
      * @param destination клетка, в которую перемещаяется фигура
      * @return массив клеток, по которым проходит фигура
      * @throws ImpossibleMoveException фигура не может совершить переход в указнную клетку
@@ -23,6 +22,7 @@ public class Knight extends Figure {
 
     /**
      * Создание копии для осуществления перемещения
+     *
      * @param destination клетка, в которую перемещаяется фигура
      * @return новую фигуру
      */
