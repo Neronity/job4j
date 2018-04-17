@@ -20,12 +20,27 @@ public class Board {
     }
 
     /**
+     * Поиск индекса фигуры по source клетке
+     * @cell клетка, на которой стоит фигура
+     */
+    private int indexOf(Cell cell) {
+        int index = -1;
+        for (int i = 0; i < figures.length; i++) {
+            if (figures[i] != null) {
+                if (figures[i].position.equals(cell)) {
+                    index = i;
+                }
+            }
+        }
+        return index;
+    }
+
+    /**
      * Движение фигуры из одной клетки в другую
      * @param source клетка, из которой осуществляется ход
      * @param destination
      */
     public void move(Cell source, Cell destination) {
-        Figure newFigure = null;
         int index = 0;
         try {
             index = checkMove(source, destination);
@@ -36,18 +51,7 @@ public class Board {
         } catch (FigureNotFoundException fnfe) {
             System.out.println("There is no figure on source cell!");
         }
-        for (int i = index; i < arrayPosition; i++) {
-            if (i == arrayPosition - 1) {
-                newFigure = figures[i].copy(destination);
-                figures[i] = null;
-                arrayPosition -= 1;
-                break;
-            } else {
-                figures[i] = figures[i + 1];
-            }
-        }
-        add(newFigure);
-
+        figures[index] = figures[index].copy(destination);
     }
 
     /**
@@ -60,25 +64,18 @@ public class Board {
      * @throws FigureNotFoundException На клетке source нет никакой фигуры
      */
     private int checkMove(Cell source, Cell destination) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
-        Figure movingFigure = null;
-        int index = -1;
-        for (int i = 0; i < arrayPosition; i++) {
-            if (figures[i].position.x == source.x && figures[i].position.y == source.y) {
-                movingFigure = figures[i];
-                index = i;
-                break;
-            }
+        int index = indexOf(source);
+        if (source == destination) {
+            throw new ImpossibleMoveException();
         }
-        if (movingFigure == null) {
+        if (index == -1) {
             throw new FigureNotFoundException();
         }
-        Cell[] way = movingFigure.way(source, destination);
-        if (!(movingFigure instanceof Knight)) {
-            for (int i = 1; i < way.length - 1; i++) {
-                if (!(way[i] == null)) {
-                    if (isOccupied(way[i])) {
-                        throw new OccupiedWayException();
-                    }
+        Cell[] way = figures[index].way(source, destination);
+        for (int i = 0; i < way.length - 1; i++) {
+            if (!(way[i] == null)) {
+                if (isOccupied(way[i])) {
+                    throw new OccupiedWayException();
                 }
             }
         }
@@ -93,100 +90,10 @@ public class Board {
     public boolean isOccupied(Cell position) {
         boolean isOccupied = false;
         for (Figure figure : figures) {
-            if (!(figure == null) && figure.position.x == position.x && figure.position.y == position.y) {
+            if (!(figure == null) && figure.position.equals(position)) {
                 isOccupied = true;
             }
         }
         return isOccupied;
-    }
-
-    /**
-     * Класс, описывающий фигуру "Слон"
-     */
-    public static class Bishop extends Figure {
-
-        public Bishop(Cell position) {
-            super(position);
-        }
-
-        /**
-         * Движения фигуры
-         * @param source клетка, из которой осуществляется ход
-         * @param destination клетка, в которую перемещаяется фигура
-         * @return массив клеток, по которым проходит фигура
-         * @throws ImpossibleMoveException фигура не может совершить переход в указнную клетку
-         */
-        public Cell[] way(Cell source, Cell destination) throws ImpossibleMoveException {
-            Cell[] way = new Cell[40];
-            int index = 0;
-            if (destination.x > source.x && destination.y > source.y) {
-                while (source.x <= destination.x && source.y <= destination.y) {
-                    way[index++] = new Cell(source.x, source.y);
-                    source.x++;
-                    source.y++;
-                }
-            } else if (destination.x < source.x && destination.y < source.y) {
-                while (source.x >= destination.x && source.y >= destination.y) {
-                    way[index++] =  new Cell(source.x, source.y);
-                    source.x--;
-                    source.y--;
-                }
-            } else if (destination.x < source.x && destination.y > source.y) {
-                while (source.x >= destination.x && source.y <= destination.y) {
-                    way[index++] =  new Cell(source.x, source.y);
-                    source.x--;
-                    source.y++;
-                }
-            } else if (destination.x > source.x && destination.y < source.y) {
-                while (source.x <= destination.x && source.y >= destination.y) {
-                    way[index++] =  new Cell(source.x, source.y);
-                    source.x++;
-                    source.y--;
-                }
-            }
-            if (!(way[index - 1].x == destination.x && way[index - 1].y == destination.y)) {
-                throw new ImpossibleMoveException();
-            }
-            return way;
-        }
-
-        /**
-         * Создание копии для осуществления перемещения
-         * @param destination клетка, в которую перемещаяется фигура
-         * @return новую фигуру
-         */
-        public Figure copy(Cell destination) {
-            return new Bishop(destination);
-        }
-    }
-
-    /**
-     * Класс, описывающий фигуру "Конь"
-     */
-    public class Knight extends Figure {
-
-        public Knight(Cell position) {
-            super(position);
-        }
-
-        /**
-         *
-         * @param source клетка, из которой осуществляется ход
-         * @param destination клетка, в которую перемещаяется фигура
-         * @return массив клеток, по которым проходит фигура
-         * @throws ImpossibleMoveException фигура не может совершить переход в указнную клетку
-         */
-        public Cell[] way(Cell source, Cell destination) throws ImpossibleMoveException {
-            return new Cell[40];
-        }
-
-        /**
-         * Создание копии для осуществления перемещения
-         * @param destination клетка, в которую перемещаяется фигура
-         * @return новую фигуру
-         */
-        public Figure copy(Cell destination) {
-            return new Knight(destination);
-        }
     }
 }

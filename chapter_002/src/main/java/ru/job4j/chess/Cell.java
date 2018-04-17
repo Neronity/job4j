@@ -13,4 +13,11 @@ public class Cell {
         this.x = x;
         this.y = y;
     }
+
+    /**
+     * Сравнение параметров двух клеток
+     */
+    public boolean equals(Cell cell) {
+        return (this.x == cell.x && this.y == cell.y);
+    }
 }
