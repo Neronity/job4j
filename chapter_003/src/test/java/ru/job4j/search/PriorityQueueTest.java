@@ -2,6 +2,8 @@ package ru.job4j.search;
 
 import org.junit.Test;
 
+import java.util.LinkedList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -15,4 +17,14 @@ public class PriorityQueueTest {
         Task result = queue.take();
         assertThat(result.getDesc(), is("urgent"));
     }
+
+    @Test
+    public void when1TaskTheAddTaskWithLowerPriority() {
+        PriorityQueue queue = new PriorityQueue();
+        queue.put(new Task("middle", 3));
+        queue.put(new Task("low", 5));
+        LinkedList<Task> result = queue.getTasks();
+        assertThat(result.size(), is(2));
+    }
+
 }
