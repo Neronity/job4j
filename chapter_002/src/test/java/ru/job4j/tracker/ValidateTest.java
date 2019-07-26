@@ -35,7 +35,7 @@ public class ValidateTest {
         assertThat(
                 this.mem.toString(),
                 is(
-                        "Введено не число! Пожалуйста, введите число!\n"
+                        "Введено не число! Пожалуйста, введите число!" + System.lineSeparator()
                 )
         );
     }
@@ -49,7 +49,7 @@ public class ValidateTest {
         assertThat(
                 this.mem.toString(),
                 is(
-                        "Введен неверный пункт меню! Пожалуйста, введите число из диапазона меню!\n"
+                        "Введен неверный пункт меню! Пожалуйста, введите число из диапазона меню!" + System.lineSeparator()
                 )
         );
     }

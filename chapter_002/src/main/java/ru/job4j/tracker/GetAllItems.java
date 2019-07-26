@@ -11,6 +11,5 @@ public class GetAllItems extends BaseAction {
 		for (Item item : tracker.getAll()) {
             	System.out.println("Имя: " + item.getName() + " ID " + item.getId());
         }
-        System.out.println("");
 	}
 }

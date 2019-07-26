@@ -64,7 +64,7 @@ public class Menu {
         	String desc = input.ask("Введите описание заявки :");
         	Item item = new Item(name, desc, null);
         	tracker.add(item);
-        	System.out.println("------------ Новая заявка с ID : " + item.getId() + "-----------\n");
+        	System.out.println("------------ Новая заявка с ID : " + item.getId() + "-----------");
 		}
 	}
 
@@ -84,7 +84,7 @@ public class Menu {
         	String desc = input.ask("Введите описание новой заявки :");
         	Item item = new Item(name, desc, id);
         	tracker.replace(id, item);
-        	System.out.println("------------ Заявка успешно заменена -----------\n");
+        	System.out.println("------------ Заявка успешно заменена -----------");
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Menu {
 			System.out.println("------------ Удаление существующей заявки --------------");
         	String id = input.ask("Введите уникальный ID заявки, которую хотите удалить:");
         	tracker.delete(id);
-        	System.out.println("------------ Заявка успешно удалена -----------\n");
+        	System.out.println("------------ Заявка успешно удалена -----------");
 		}
 	}
 
