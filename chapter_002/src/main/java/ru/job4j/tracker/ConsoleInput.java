@@ -11,7 +11,7 @@ public class ConsoleInput implements Input {
 
 	}
 
-	public int ask(String question, int[] range) throws MenuOutOfRangeException {
+	public int ask(String question, List<Integer> range) throws MenuOutOfRangeException {
 		int key = Integer.parseInt(ask(question));
 		boolean exist = false;
 		for (int value : range) {

@@ -41,4 +41,5 @@ public class Item {
 		System.out.println("------------ Описание заявки --------------\n" + this.desc);
 		System.out.println("Уникальный ID: " + this.id + "\n");
 	}
+
 }

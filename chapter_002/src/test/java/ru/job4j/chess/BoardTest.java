@@ -106,7 +106,7 @@ public class BoardTest {
         Cell destination = new Cell(7, 7);
         board.move(new Cell(5, 6), destination);
         assertThat(this.mem.toString(),
-                is(new StringJoiner(System.lineSeparator(), "\r\n",
+                is(new StringJoiner(System.lineSeparator(), "\n",
                         System.lineSeparator())
                         .add("There is no figure on source cell!")
                         .add(System.lineSeparator())

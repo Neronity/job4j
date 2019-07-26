@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @version $Id$
  * @since 0.1
@@ -37,9 +40,9 @@ public class StartUI {
     public void init() {
         Menu menu = new Menu(input, tracker);
         menu.fillActions();
-        int[] actions = new int[menu.actions.length];
-        for (int index = 0; index < menu.actions.length; index++) {
-            actions[index] = menu.actions[index].key();
+        List<Integer> actions = new ArrayList<>();
+        for (UserAction a : menu.actions) {
+            actions.add(a.key());
         }
         do {
             menu.show();

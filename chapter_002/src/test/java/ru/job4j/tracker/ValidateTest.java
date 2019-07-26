@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -28,13 +29,13 @@ public class ValidateTest {
     @Test
     public void whenTextInsteadOfInt() {
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"invalid", "6", "y"})
+                new StubInput(Arrays.asList("invalid", "6", "y"))
         );
-        input.ask("Enter", new int[] {0, 1, 2, 3, 4, 5, 6});
+        input.ask("Enter", Arrays.asList(0, 1, 2, 3, 4, 5, 6));
         assertThat(
                 this.mem.toString(),
                 is(
-                        "Введено не число! Пожалуйста, введите число!\r\n"
+                        "Введено не число! Пожалуйста, введите число!\n"
                 )
         );
     }
@@ -42,13 +43,13 @@ public class ValidateTest {
     @Test
     public void whenOutOfMenuRange() {
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"-3", "6", "y"})
+                new StubInput(Arrays.asList("-3", "6", "y"))
         );
-        input.ask("Enter", new int[] {0, 1, 2, 3, 4, 5, 6});
+        input.ask("Enter", Arrays.asList(0, 1, 2, 3, 4, 5, 6));
         assertThat(
                 this.mem.toString(),
                 is(
-                        "Введен неверный пункт меню! Пожалуйста, введите число из диапазона меню!\r\n"
+                        "Введен неверный пункт меню! Пожалуйста, введите число из диапазона меню!\n"
                 )
         );
     }

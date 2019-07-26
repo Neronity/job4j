@@ -1,14 +1,17 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Menu {
 
 	private Input input;
 	private Tracker tracker;
 
 	/**
-	 * Массив с действиями
+	 * Лист с действиями
 	 */
-	public UserAction[] actions = new UserAction[7];
+	public List<UserAction> actions = new ArrayList<>();
 
 	public Menu(Input input, Tracker tracker) {
 		this.input = input;
@@ -19,13 +22,13 @@ public class Menu {
 	 * Заполнение массива действий
 	 */
 	public void fillActions() {
-		actions[0] = new AddItem(0, "Создать заявку");
-		actions[1] = new Menu.ReplaceItem(1, "Заменить заявку");
-		actions[2] = new DeleteItem(2, "Удалить заявку");
-		actions[3] = new FindById(3, "Поиск по ID заявки");
-		actions[4] = new FindByName(4, "Поиск по имени заявки");
-		actions[5] = new GetAllItems(5, "Список всех заявок");
-		actions[6] = new Exit(6, "Выйти");
+		actions.add(new AddItem(0, "Создать заявку"));
+		actions.add(new Menu.ReplaceItem(1, "Заменить заявку"));
+		actions.add(new DeleteItem(2, "Удалить заявку"));
+		actions.add(new FindById(3, "Поиск по ID заявки"));
+		actions.add(new FindByName(4, "Поиск по имени заявки"));
+		actions.add(new GetAllItems(5, "Список всех заявок"));
+		actions.add(new Exit(6, "Выйти"));
 
 	}
 
@@ -34,7 +37,7 @@ public class Menu {
 	 * @param key номер действия, которое нужно выполнить
 	 */
 	public void select(int key) {
-		actions[key].execute(input, tracker);
+		actions.get(key).execute(input, tracker);
 	}
 
 	/**
