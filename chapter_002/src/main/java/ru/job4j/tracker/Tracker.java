@@ -37,9 +37,7 @@ public class Tracker {
      * @param item заявка, на которую заменяем
      */
     public void replace(String id, Item item) {
-        int idx = getItemIndex(findById(id).getId());
-        items.remove(idx);
-        items.add(idx, item);
+        items.set(getItemIndex(id), item);
     }
 
     /**
@@ -105,12 +103,13 @@ public class Tracker {
      * @return индекс заявки
      */
     public int getItemIndex(String id) {
-        int index = -1;
+        int index = 0;
         for (Item i : items) {
             if (id.equals(i.getId())) {
-                index = items.indexOf(i);
+                return index;
             }
+            index++;
         }
-        return index;
+        return -1;
     }
 }
