@@ -36,17 +36,26 @@ public class Tracker {
      * @param id заявка, которую нужно заменить
      * @param item заявка, на которую заменяем
      */
-    public void replace(String id, Item item) {
-        items.set(getItemIndex(id), item);
+    public boolean replace(String id, Item item) {
+        int idx = getItemIndex(id);
+        if (idx != -1) {
+            items.set(idx, item);
+            return true;
+        }
+        return false;
     }
 
     /**
      * Удаление существующей заявки;
      * @param id заявка, которую нужно удалить;
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
         int index = getItemIndex(id);
-        items.remove(index);
+        if (index != -1) {
+            items.remove(index);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -69,11 +78,11 @@ public class Tracker {
      * @param name имя заявки
      * @return заявка с указанным именем
      */
-    public Item findByName(String name) {
-        Item result = null;
+    public List<Item> findByName(String name) {
+        List<Item> result = new ArrayList<>();
         for (Item i : items) {
             if (name.equals(i.getName())) {
-                result = i;
+                result.add(i);
             }
         }
         return result;

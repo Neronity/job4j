@@ -133,7 +133,9 @@ public class Menu {
 		public void execute(Input input, Tracker tracker) {
 			System.out.println("------------ Поиск заявки по имени --------------");
         	String name = input.ask("Введите полное имя заявки, которую хотите найти:");
-        	tracker.findByName(name).showItemInfo();
+        	for (Item i : tracker.findByName(name)) {
+        		i.showItemInfo();
+			}
 		}
 	}
 
