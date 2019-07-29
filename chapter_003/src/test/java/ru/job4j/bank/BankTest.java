@@ -76,4 +76,21 @@ public class BankTest {
         assertThat(a1.getValue(), is(0.00));
         assertThat(a2.getValue(), is(200.00));
     }
+
+    @Test
+    public void whenNotEnoughMoneyThenFail() {
+        Bank b = new Bank();
+        User u1 = new User("Vasya", "1234");
+        User u2 = new User("Vitya", "1235");
+        b.addUser(u1);
+        b.addUser(u2);
+        Account a1 = new Account("account1");
+        Account a2 =  new Account("account2");
+        a1.setValue(100.00);
+        b.addAccountToUser("1234", a1);
+        b.addAccountToUser("1235", a2);
+        assertThat(b.transferMoney("1234", a1, "1235", a2, 200.00), is(false));
+        assertThat(a1.getValue(), is(100.00));
+        assertThat(a2.getValue(), is(0.00));
+    }
 }
