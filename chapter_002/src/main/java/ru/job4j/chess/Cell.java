@@ -20,4 +20,9 @@ public class Cell {
     public boolean equals(Cell cell) {
         return (this.x == cell.x && this.y == cell.y);
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

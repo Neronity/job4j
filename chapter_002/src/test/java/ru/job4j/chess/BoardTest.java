@@ -78,7 +78,7 @@ public class BoardTest {
                 is(new StringJoiner(
                         System.lineSeparator(), "",
                         System.lineSeparator())
-                        .add("This figure can not move to chosen cell!")
+                        .add("This figure can not move to chosen cell!").toString()
                 ));
 
     }
@@ -94,7 +94,7 @@ public class BoardTest {
                 is(new StringJoiner(
                         System.lineSeparator(), "",
                         System.lineSeparator())
-                        .add("This figure can not move through other figures!")
+                        .add("This figure can not move through other figures!").toString()
                 ));
 
     }
@@ -108,8 +108,7 @@ public class BoardTest {
         assertThat(this.mem.toString(),
                 is(new StringJoiner(System.lineSeparator(), "",
                         System.lineSeparator())
-                        .add("There is no figure on source cell!")
-                        .add(System.lineSeparator())
+                        .add("There is no figure on source cell!").toString()
                 ));
 
     }

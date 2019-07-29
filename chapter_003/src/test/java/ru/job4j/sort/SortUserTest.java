@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
 public class SortUserTest {
 
     @Test
-    public void WhenUserListThenSortedUserSet() {
+    public void whenUserListThenSortedUserSet() {
         User u1 = new User(4, "ivan");
         User u2 = new User(2, "viktor");
         User u3 = new User(3, "artem");
@@ -35,7 +35,7 @@ public class SortUserTest {
     }
 
     @Test
-    public void WhenSortByNameLengthThenSortedList() {
+    public void whenSortByNameLengthThenSortedList() {
         User u1 = new User(4, "Ирa");
         User u2 = new User(2, "Ирина");
         User u3 = new User(3, "Филипп");
@@ -60,7 +60,7 @@ public class SortUserTest {
 
 
     @Test
-    public void WhenSameNameThenSortByAge() {
+    public void whenSameNameThenSortByAge() {
         User u1 = new User(4, "Ирина");
         User u2 = new User(2, "Ирина");
         User u3 = new User(3, "Филипп");
