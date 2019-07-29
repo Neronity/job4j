@@ -8,11 +8,8 @@ public class ListCompare implements Comparator<String> {
     public int compare(String left, String right) {
         int result = 0;
         for (int idx = 0; idx < left.length() && idx < right.length(); idx++) {
-            int charCompare = Character.compare(left.charAt(idx), right.charAt(idx));
-            if (charCompare != 0) {
-                result = charCompare;
-                break;
-            }
+            result = Character.compare(left.charAt(idx), right.charAt(idx));
+            if (result != 0) break;
         }
         return result != 0 ? result : Integer.compare(left.length(), right.length());
     }
