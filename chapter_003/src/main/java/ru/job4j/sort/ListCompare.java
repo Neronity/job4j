@@ -1,0 +1,19 @@
+package ru.job4j.sort;
+
+import java.util.Comparator;
+
+public class ListCompare implements Comparator<String> {
+
+    @Override
+    public int compare(String left, String right) {
+        int result = 0;
+        for (int idx = 0; idx < left.length() && idx < right.length(); idx++) {
+            int charCompare = Character.compare(left.charAt(idx), right.charAt(idx));
+            if (charCompare != 0) {
+                result = charCompare;
+                break;
+            }
+        }
+        return result != 0 ? result : Integer.compare(left.length(), right.length());
+    }
+}
