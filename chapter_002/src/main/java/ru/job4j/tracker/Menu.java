@@ -2,20 +2,23 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Menu {
 
 	private Input input;
 	private Tracker tracker;
+	private final Consumer<String> output;
 
 	/**
 	 * Лист с действиями
 	 */
 	public List<UserAction> actions = new ArrayList<>();
 
-	public Menu(Input input, Tracker tracker) {
+	public Menu(Input input, Tracker tracker, Consumer<String> output) {
 		this.input = input;
 		this.tracker = tracker;
+		this.output = output;
 	}
 
 	/**
