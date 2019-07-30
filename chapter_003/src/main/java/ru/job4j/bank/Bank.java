@@ -21,30 +21,48 @@ public class Bank {
     }
 
     public void addAccountToUser(String passport, Account a) {
-        userData.get(new User(passport)).add(a);
+        for (Map.Entry<User, List<Account>> e : userData.entrySet()) {
+            if (e.getKey().getPassport().equals(passport)) {
+                e.getValue().add(a);
+            }
+        }
     }
 
     public void deleteAccountFromUser(String passport, Account a) {
-        userData.get(new User(passport)).remove(a);
+        for (Map.Entry<User, List<Account>> e : userData.entrySet()) {
+            if (e.getKey().getPassport().equals(passport)) {
+                e.getValue().remove(a);
+            }
+        }
     }
 
     public List<Account> getUserAccounts(String passport) {
-        return userData.get(new User(passport));
+        List<Account> result = new ArrayList<>();
+        for (Map.Entry<User, List<Account>> e : userData.entrySet()) {
+            if (e.getKey().getPassport().equals(passport)) {
+                result = e.getValue();
+            }
+        }
+        return result;
+    }
+
+    private Account findSourceAccount(String passport, String requisites) {
+        Account result = null;
+        for (Account a : getUserAccounts(passport)) {
+            if (a.getRequisites().equals(requisites)) {
+                result = a;
+            }
+        }
+        return result;
     }
 
     public boolean transferMoney(String srcPassport,
-                                 Account srcAccount,
+                                 String srcRequisites,
                                  String destPassport,
-                                 Account destAccount,
+                                 String destRequisites,
                                  double amount) {
-        boolean result = false;
-        List<Account> srcAccounts = getUserAccounts(srcPassport);
-        List<Account> destAccounts = getUserAccounts(destPassport);
-        int srcIndex = srcAccounts.indexOf(srcAccount);
-        int destIndex = destAccounts.indexOf(destAccount);
-        if (srcIndex != -1 && destIndex != -1) {
-            result = srcAccounts.get(srcIndex).transfer(destAccounts.get(destIndex), amount);
-        }
-        return result;
+        Account src = findSourceAccount(srcPassport, srcRequisites);
+        Account dest = findSourceAccount(destPassport, destRequisites);
+        return src != null && dest != null && src.transfer(dest, amount);
     }
 }

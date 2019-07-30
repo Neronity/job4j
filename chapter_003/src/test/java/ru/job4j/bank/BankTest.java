@@ -72,7 +72,7 @@ public class BankTest {
         a1.setValue(200.00);
         b.addAccountToUser("1234", a1);
         b.addAccountToUser("1235", a2);
-        b.transferMoney("1234", a1, "1235", a2, 200.00);
+        b.transferMoney("1234", "account1", "1235", "account2", 200.00);
         assertThat(a1.getValue(), is(0.00));
         assertThat(a2.getValue(), is(200.00));
     }
@@ -89,7 +89,7 @@ public class BankTest {
         a1.setValue(100.00);
         b.addAccountToUser("1234", a1);
         b.addAccountToUser("1235", a2);
-        assertThat(b.transferMoney("1234", a1, "1235", a2, 200.00), is(false));
+        assertThat(b.transferMoney("1234", "account1", "1235", "account2", 200.00), is(false));
         assertThat(a1.getValue(), is(100.00));
         assertThat(a2.getValue(), is(0.00));
     }
