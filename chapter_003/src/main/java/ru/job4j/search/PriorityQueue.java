@@ -26,7 +26,7 @@ public class PriorityQueue {
                 tasks.add(task);
             }
         }
-        if (tasks.size() == 0) {
+        if (size == 0) {
             tasks.add(0, task);
         }
     }
