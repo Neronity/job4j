@@ -11,8 +11,8 @@ public class Profiles {
         return profiles
                 .stream()
                 .map(Profile::getAddress)
-                .distinct()
                 .sorted()
+                .distinct()
                 .collect(Collectors.toList());
     }
 }
