@@ -1,58 +1,38 @@
 package ru.job4j.sort;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DepartmentSort {
-    private List<String> departments = new ArrayList<>();
-    private List<DepartmentGroup> depGroups = new ArrayList<>();
+    private Set<String> departments = new TreeSet<>();
 
-    public List<String> getDepartments() {
+    public Set<String> getDepartments() {
         return departments;
     }
 
-    public void setDepartments(List<String> departments) {
+    public void setDepartments(Set<String> departments) {
         this.departments = departments;
-    }
+        departments.addAll(departments
+                .stream()
+                .map(e -> e.split("\\\\")[0])
+                .distinct()
+                .collect(Collectors.toList()));
 
-    private void divideByGroups() {
-        Collections.sort(departments);
-        String currentMainDep = "";
-        DepartmentGroup currentGroup = null;
-        for (String s : departments) {
-            String[] depPath = s.split("\\\\");
-            String mainDep = depPath[0];
-            if (!mainDep.equals(currentMainDep)) {
-                if (currentGroup != null) {
-                    depGroups.add(currentGroup);
-                }
-                currentGroup = new DepartmentGroup(new PriorityQueue<>());
-                currentMainDep = mainDep;
-                if (depPath.length > 1) {
-                    currentGroup.getDeps().add(mainDep);
-                }
-            }
-            currentGroup.getDeps().add(s);
-        }
-        depGroups.add(currentGroup);
     }
-
 
     public void ascSort() {
-        divideByGroups();
-        groupsToList();
+        Set<String> s = new TreeSet<>(Comparator.comparing((String o) -> o.split("\\\\")[0]).thenComparing(o -> o));
+        s.addAll(departments);
+        departments = s;
     }
 
     public void descSort() {
-        divideByGroups();
-        Collections.reverse(depGroups);
-        groupsToList();
+        Set<String> s = new TreeSet<>((o1, o2) -> {
+            int mainGroupResult = o2.split("\\\\")[0].compareTo(o1.split("\\\\")[0]);
+            return mainGroupResult != 0 ? mainGroupResult : o1.compareTo(o2);
+        });
+        s.addAll(departments);
+        departments = s;
     }
 
-    private void groupsToList() {
-        List<String> result = new ArrayList<>();
-        for (DepartmentGroup dg : depGroups) {
-            result.addAll(dg.getDeps());
-        }
-        departments = result;
-    }
 }
