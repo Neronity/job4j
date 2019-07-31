@@ -1,9 +1,7 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Bank {
     private Map<User, List<Account>> userData = new HashMap<>();
@@ -21,39 +19,31 @@ public class Bank {
     }
 
     public void addAccountToUser(String passport, Account a) {
-        for (Map.Entry<User, List<Account>> e : userData.entrySet()) {
-            if (e.getKey().getPassport().equals(passport)) {
-                e.getValue().add(a);
-            }
-        }
+        getUserEntry(passport).ifPresent(e -> e.getValue().add(a));
     }
 
     public void deleteAccountFromUser(String passport, Account a) {
-        for (Map.Entry<User, List<Account>> e : userData.entrySet()) {
-            if (e.getKey().getPassport().equals(passport)) {
-                e.getValue().remove(a);
-            }
-        }
+        getUserEntry(passport).ifPresent(userListEntry -> userListEntry.getValue().remove(a));
     }
 
     public List<Account> getUserAccounts(String passport) {
-        List<Account> result = new ArrayList<>();
-        for (Map.Entry<User, List<Account>> e : userData.entrySet()) {
-            if (e.getKey().getPassport().equals(passport)) {
-                result = e.getValue();
-            }
-        }
-        return result;
+        return getUserEntry(passport)
+                .map(Map.Entry::getValue)
+                .orElse(new ArrayList<>());
     }
 
     private Account findSourceAccount(String passport, String requisites) {
-        Account result = null;
-        for (Account a : getUserAccounts(passport)) {
-            if (a.getRequisites().equals(requisites)) {
-                result = a;
-            }
-        }
-        return result;
+        return getUserAccounts(passport)
+                .stream()
+                .filter(a -> a.getRequisites().equals(requisites))
+                .findFirst().orElse(null);
+    }
+
+    private Optional<Map.Entry<User, List<Account>>> getUserEntry(String passport) {
+        return userData.entrySet()
+                .stream()
+                .filter(e -> e.getKey().getPassport().equals(passport))
+                .findFirst();
     }
 
     public boolean transferMoney(String srcPassport,
