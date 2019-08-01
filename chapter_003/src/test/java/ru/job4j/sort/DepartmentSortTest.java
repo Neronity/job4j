@@ -85,4 +85,14 @@ public class DepartmentSortTest {
                 "K2\\SK1\\SSK1",
                 "K2\\SK1\\SSK2")));
     }
+
+    @Test
+    public void when1DepartmentThen3Departments() {
+        DepartmentSort dep = new DepartmentSort();
+        dep.setDepartments(new TreeSet<>(Arrays.asList("K1\\SK1\\SSK2")));
+        dep.ascSort();
+        assertThat(new ArrayList<>(dep.getDepartments()), is(Arrays.asList("K1",
+                "K1\\SK1",
+                "K1\\SK1\\SSK2")));
+    }
 }

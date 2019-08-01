@@ -6,6 +6,18 @@ import java.util.stream.Collectors;
 public class DepartmentSort {
     private Set<String> departments = new TreeSet<>();
 
+    private static List<String> getAllMainDepartments(String[] e) {
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < e.length; i++) {
+            StringJoiner sj = new StringJoiner("\\");
+            for (int j = 0; j <= i; j++) {
+                sj.add(e[j]);
+            }
+            result.add(sj.toString());
+        }
+        return result;
+    }
+
     public Set<String> getDepartments() {
         return departments;
     }
@@ -14,8 +26,10 @@ public class DepartmentSort {
         this.departments = departments;
         departments.addAll(departments
                 .stream()
-                .map(e -> e.split("\\\\")[0])
+                .map(e -> e.split("\\\\"))
                 .distinct()
+                .map(DepartmentSort::getAllMainDepartments)
+                .flatMap(List::stream)
                 .collect(Collectors.toList()));
 
     }
