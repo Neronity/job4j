@@ -21,7 +21,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
-        if (index >= size || array[index] == null) {
+        if (index >= size) {
             throw new ArrayIndexOutOfBoundsException();
         }
         array[index] = model;
@@ -38,7 +38,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index >= size || array[index] == null) {
+        if (index >= size) {
             throw new ArrayIndexOutOfBoundsException();
         }
         return (T) array[index];
