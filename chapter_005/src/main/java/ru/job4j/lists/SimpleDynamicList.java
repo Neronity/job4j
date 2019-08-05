@@ -60,7 +60,7 @@ public class SimpleDynamicList<T> implements Iterable<T> {
             if (this.modExpected != modCounter) {
                 throw new ConcurrentModificationException();
             }
-            if(!hasNext()) {
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             return (T) array[cursor++];
