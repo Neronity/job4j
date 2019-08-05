@@ -67,4 +67,11 @@ public class SimpleLinkedListTest {
             ll.add(i);
         }
     }
+
+    @Test
+    public void whenRemoveFirstThenSuccess() {
+        ll.add(1);
+        ll.removeFirst();
+        assertThat(ll.getSize(), is(0));
+    }
 }

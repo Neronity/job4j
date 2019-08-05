@@ -6,9 +6,13 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleLinkedList<T> implements Iterable<T> {
-    Node<T> first;
-    int size = 0;
-    int modCounter = 0;
+    private Node<T> first;
+    private int size = 0;
+    private int modCounter = 0;
+
+    public int getSize() {
+        return size;
+    }
 
     public void add(T data) {
         if (first != null) {
@@ -21,7 +25,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index > size) {
+        if (index >= size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> result = first;
@@ -29,6 +33,13 @@ public class SimpleLinkedList<T> implements Iterable<T> {
             result = result.next;
         }
         return result.data;
+    }
+
+    public void removeFirst() {
+        if (size > 0) {
+            this.first = this.first.next;
+            size--;
+        }
     }
 
     @Override
