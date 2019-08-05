@@ -14,9 +14,10 @@ public class AbstractStore<T extends Base> implements Store<T> {
     @Override
     public boolean replace(String id, T model) {
         boolean result = true;
-        try {
-            sa.set(indexOf(id), model);
-        } catch (ArrayIndexOutOfBoundsException ex) {
+        int userIdx = indexOf(id);
+        if (userIdx != -1) {
+            sa.set(userIdx, model);
+        } else {
             result = false;
         }
         return result;
@@ -25,9 +26,10 @@ public class AbstractStore<T extends Base> implements Store<T> {
     @Override
     public boolean delete(String id) {
         boolean result = true;
-        try {
-            sa.remove(indexOf(id));
-        } catch (ArrayIndexOutOfBoundsException ex) {
+        int userIdx = indexOf(id);
+        if (userIdx != -1) {
+            sa.remove(userIdx);
+        } else {
             result = false;
         }
         return result;
