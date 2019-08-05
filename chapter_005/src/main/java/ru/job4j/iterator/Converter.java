@@ -8,23 +8,23 @@ public class Converter {
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
         return new Iterator<Integer>() {
             Iterator<Integer> currentIter;
-            Iterator<Integer> nextIter;
 
             {
                 currentIter = refreshIterator();
-                nextIter = refreshIterator();
             }
 
             @Override
             public boolean hasNext() {
-                return (currentIter != null && currentIter.hasNext()) || nextIter != null;
+                if (currentIter != null && !currentIter.hasNext()) {
+                    currentIter = refreshIterator();
+                }
+                return currentIter != null;
             }
 
             @Override
             public Integer next() {
                 if (currentIter != null && !currentIter.hasNext()) {
-                    currentIter = nextIter;
-                    nextIter = refreshIterator();
+                    currentIter = refreshIterator();
                 }
                 if (currentIter == null) {
                     throw new NoSuchElementException();
