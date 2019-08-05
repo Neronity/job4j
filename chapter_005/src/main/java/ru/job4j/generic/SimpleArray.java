@@ -21,14 +21,14 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
-        if (index >= size) {
+        if (index >= pointer) {
             throw new ArrayIndexOutOfBoundsException();
         }
         array[index] = model;
     }
 
     public void remove(int index) {
-        if (index >= size) {
+        if (index >= pointer) {
             throw new ArrayIndexOutOfBoundsException();
         }
         if (size - 1 - index >= 0) {
@@ -38,7 +38,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index >= size) {
+        if (index >= pointer) {
             throw new ArrayIndexOutOfBoundsException();
         }
         return (T) array[index];
@@ -54,12 +54,12 @@ public class SimpleArray<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return cursor < size && array[cursor] != null;
+            return cursor < pointer && array[cursor] != null;
         }
 
         @Override
         public T next() {
-            if (cursor >= size || array[cursor] == null) {
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             return (T) array[cursor++];
