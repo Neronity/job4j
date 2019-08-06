@@ -50,6 +50,6 @@ class People {
                 && this.weight == p.weight
                 && this.isMember == p.isMember
                 && this.credits == p.credits
-                && Arrays.equals(this.interests,p.interests);
+                && Arrays.equals(this.interests, p.interests);
     }
 }
