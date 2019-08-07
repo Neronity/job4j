@@ -12,7 +12,7 @@ public class SimpleStackTest {
     @Test
     public void whenPushThenElementAdded() {
         ss.push(34);
-        assertThat(ss.get(0), is(34));
+        assertThat(ss.poll(), is(34));
     }
 
     @Test
