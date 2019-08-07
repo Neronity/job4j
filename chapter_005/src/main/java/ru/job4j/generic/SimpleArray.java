@@ -54,7 +54,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return cursor < pointer && array[cursor] != null;
+            return cursor < pointer;
         }
 
         @Override
