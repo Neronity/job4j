@@ -52,7 +52,7 @@ public class SimpleDynamicList<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return this.cursor < pointer && array[this.cursor] != null;
+            return this.cursor < pointer;
         }
 
         @Override
