@@ -21,7 +21,8 @@ public class SimpleSet<T> implements Iterable<T> {
     private boolean contains(T value) {
         boolean result = false;
         for (T elem : list) {
-            if (elem.equals(value)) {
+
+            if (elem == null ? elem == value : elem.equals(value)) {
                 result = true;
             }
         }
