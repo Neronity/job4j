@@ -1,14 +1,14 @@
 package ru.job4j.lists;
 
-public class SimpleStack<T> extends SimpleLinkedList<T> {
+public class SimpleStack<T> {
+
+    SimpleLinkedList<T> linkedList = new SimpleLinkedList<>();
 
     public void push(T value) {
-        add(value);
+        linkedList.add(value);
     }
 
     public T poll() {
-        T result = get(0);
-        removeFirst();
-        return result;
+        return linkedList.removeFirst();
     }
 }

@@ -35,11 +35,14 @@ public class SimpleLinkedList<T> implements Iterable<T> {
         return result.data;
     }
 
-    public void removeFirst() {
+    public T removeFirst() {
+        Node<T> result = null;
         if (size > 0) {
+            result = this.first;
             this.first = this.first.next;
             size--;
         }
+        return result == null ? null : result.data;
     }
 
     @Override
