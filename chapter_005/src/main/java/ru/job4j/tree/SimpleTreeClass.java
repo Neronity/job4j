@@ -44,20 +44,31 @@ public class SimpleTreeClass<E extends Comparable<E>> implements SimpleTree<E>, 
         return rsl;
     }
 
-    @Override
-    public Iterator<E> iterator() {
-        return new Itr(root, modCount);
+    public boolean isBinary() {
+        Iterator<Node<E>> itr = new NodeItr();
+        boolean result = true;
+        while(itr.hasNext()) {
+            if (itr.next().leaves().size() > 2) {
+                result = false;
+            }
+        }
+        return result;
     }
 
-    private class Itr implements Iterator<E> {
+    @Override
+    public Iterator<E> iterator() {
+        return new ValueItr();
+    }
+
+    private abstract class Itr {
         Queue<Node<E>> queue;
         int expectedMod;
 
 
-        public Itr(Node<E> root, int modCount) {
-            queue = new LinkedList<>();
+        public Itr() {
+            this.queue = new LinkedList<>();
             if (root != null) {
-                queue.add(root);
+                this.queue.add(root);
             }
             expectedMod = modCount;
         }
@@ -66,7 +77,7 @@ public class SimpleTreeClass<E extends Comparable<E>> implements SimpleTree<E>, 
             return !queue.isEmpty();
         }
 
-        public E next() {
+        public Node<E> nextNode() {
             if (modCount != expectedMod) {
                 throw new ConcurrentModificationException();
             }
@@ -74,11 +85,22 @@ public class SimpleTreeClass<E extends Comparable<E>> implements SimpleTree<E>, 
                 throw new NoSuchElementException();
             }
             Node<E> node = queue.poll();
-            E result = node.getValue();
             if (!node.leaves().isEmpty()) {
                 queue.addAll(node.leaves());
             }
-            return result;
+            return node;
+        }
+    }
+
+    private class ValueItr extends Itr implements Iterator<E> {
+        public E next() {
+            return nextNode().getValue();
+        }
+    }
+
+    private class NodeItr extends Itr implements Iterator<Node<E>> {
+        public Node<E> next() {
+            return nextNode();
         }
     }
 }
