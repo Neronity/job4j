@@ -1,9 +1,9 @@
 package ru.job4j.diff;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import javax.naming.Name;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Diff {
 
@@ -13,11 +13,13 @@ public class Diff {
         tmp.removeAll(current);
         info.deleted = tmp.size();
         info.added = current.size() - (previous.size() - info.deleted);
+        Map<Integer, String> currentMap = current
+                .stream()
+                .collect(Collectors.toMap(User::getId, User::getName));
         for (User u : previous) {
-            for (User c : current) {
-                if (u.id == c.id && !u.name.equals(c.name)) {
+            String currentName = currentMap.get(u.id);
+            if (currentName != null && !u.name.equals(currentName)) {
                     info.changed++;
-                }
             }
         }
         return info;
@@ -26,6 +28,14 @@ public class Diff {
     public static class User {
         private int id;
         private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
 
         public User(int id, String name) {
             this.id = id;
