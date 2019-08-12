@@ -17,7 +17,7 @@ public class SearchTest {
     private Search s = new Search();
 
     @Test
-    public void whenThen() {
+    public void whenSearchThenSuccess() {
         new File(tmpDir + "dir1").mkdirs();
         new File(tmpDir + "dir1/dir2").mkdirs();
         try {
@@ -30,8 +30,8 @@ public class SearchTest {
         }
         List<File> result = s.files(tmpDir + "dir1", Arrays.asList("txt", "cs"));
         assertThat(result.size(), is(3));
-        assertThat(result.stream().map(File::getName).collect(Collectors.toList()),
-                is(Arrays.asList("file1.txt", "file2.txt", "file2.cs")));
+        assertThat(result.stream().map(File::getName).sorted().collect(Collectors.toList()),
+                is(Arrays.asList("file1.txt", "file2.cs", "file2.txt")));
     }
 
 }
