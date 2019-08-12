@@ -1,5 +1,7 @@
 package ru.job4j.io.zip;
 
+import ru.job4j.io.search.Search;
+
 import java.io.*;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -23,24 +25,8 @@ public class Zip {
     }
 
     public List<File> seekBy(String root, List<String> exc) {
-        List<File> result = new ArrayList<>();
-        Queue<File> queue = new LinkedList<>();
-        queue.add(new File(root));
-        while (!queue.isEmpty()) {
-            File file = queue.poll();
-            if (file.isDirectory()) {
-                File[] a = file.listFiles();
-                if (a != null) {
-                    queue.addAll(Arrays.asList(a));
-                }
-            } else {
-                String[] name = file.getName().split("\\.");
-                if (!exc.contains(name[name.length - 1])) {
-                    result.add(file);
-                }
-            }
-        }
-        return result;
+        Search search = new Search();
+        return search.filterExtensions(search.searchAll(root), s -> !exc.contains(s));
     }
 
     public static void main(String[] args) {
