@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 public class ZipTest {
 
-    private String tmpDir = System.getProperty("java.io.tmpdir");
+    private String tmpDir = "src/test/java/ru/job4j/io/zip/";
     private File f1;
     private File f2;
     private File f3;
@@ -30,17 +30,17 @@ public class ZipTest {
     private File f6;
     {
         try {
-            f1 = new File(tmpDir + "ZipTest");
+            f1 = new File(tmpDir + "ZipTesting");
             f1.mkdirs();
-            f2 = new File(tmpDir + "ZipTest/test.java");
+            f2 = new File(tmpDir + "ZipTesting/test.java");
             f2.createNewFile();
-            f3 = new File(tmpDir + "ZipTest/test.txt");
+            f3 = new File(tmpDir + "ZipTesting/test.txt");
             f3.createNewFile();
-            f4 = new File(tmpDir + "ZipTest/SubZipTest");
+            f4 = new File(tmpDir + "ZipTesting/SubZipTest");
             f4.mkdirs();
-            f5 = new File(tmpDir + "ZipTest/SubZipTest/test2.java");
+            f5 = new File(tmpDir + "ZipTesting/SubZipTest/test2.java");
             f5.createNewFile();
-            f6 = new File(tmpDir + "ZipTest/SubZipTest/test3.csv");
+            f6 = new File(tmpDir + "ZipTesting/SubZipTest/test3.csv");
             f6.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class ZipTest {
     @Test
     public void whenSearchThenSuccess() {
         Zip z = new Zip();
-        List<File> fList = z.seekBy(tmpDir + "ZipTest", Arrays.asList("txt", "csv"));
+        List<File> fList = z.seekBy(tmpDir + "ZipTesting", Arrays.asList("txt", "csv"));
         assertThat(fList
                 .stream()
                 .map(File::getName)
@@ -60,7 +60,7 @@ public class ZipTest {
     @Test
     public void whenCreateNewZipThenSuccess() {
         Args a = new Args(new String[] {"-d",
-                tmpDir + "ZipTest",
+                tmpDir + "ZipTesting",
                 "-e",
                 "txt",
                 "csv",
@@ -79,9 +79,9 @@ public class ZipTest {
             e.printStackTrace();
         }
         assertThat(result.size(), is(2));
-        assertThat(result.contains(tmpDir + "ZipTest/SubZipTest/test2.java"), is(true));
-        assertThat(result.contains(tmpDir + "ZipTest/test.java"), is(true));
-        assertThat(result.contains(tmpDir + "ZipTest/test.txt"), is(false));
-        assertThat(result.contains(tmpDir + "ZipTest/SubZipTest/test3.csv"), is(false));
+        assertThat(result.contains(tmpDir + "ZipTesting/SubZipTest/test2.java"), is(true));
+        assertThat(result.contains(tmpDir + "ZipTesting/test.java"), is(true));
+        assertThat(result.contains(tmpDir + "ZipTesting/test.txt"), is(false));
+        assertThat(result.contains(tmpDir + "ZipTesting/SubZipTest/test3.csv"), is(false));
     }
 }

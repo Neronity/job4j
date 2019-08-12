@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class SearchTest {
-    private String tmpDir = System.getProperty("java.io.tmpdir");
+    private String tmpDir = "src/test/java/ru/job4j/io/search";
     private Search s = new Search();
 
     @Test
