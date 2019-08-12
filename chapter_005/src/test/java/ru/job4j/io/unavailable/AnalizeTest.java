@@ -15,10 +15,8 @@ import static org.junit.Assert.*;
 
 public class AnalizeTest {
     private Analize a = new Analize();
-    private String target = "/Users/clutterfunk/Documents/GitHub/job4j/chapter_005/"
-            + "src/test/java/ru/job4j/io/unavailable/unavailable.csv";
-    private String source = "/Users/clutterfunk/Documents/GitHub/job4j/chapter_005/"
-            + "src/test/java/ru/job4j/io/unavailable/logs.log";
+    private String target = "src/test/java/ru/job4j/io/unavailable/unavailable.csv";
+    private String source = "src/test/java/ru/job4j/io/unavailable/logs.log";
 
     @Test
     public void whenAnalizeLogsThenCorrectOutput() {
