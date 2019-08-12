@@ -2,17 +2,21 @@ package ru.job4j.io.bot;
 
 import java.io.*;
 import java.nio.Buffer;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Bot {
     private List<String> phrases = new ArrayList<>();
     private PrintWriter writer;
     private Input input;
+    private boolean isStopped = false;
+    private Map<String, Action> actionsList = new HashMap<>();
 
     public Bot(String fileName, Input input) {
         this.input = input;
+        this.actionsList.put("continue", new ContinueAction());
+        this.actionsList.put("other", new OtherAction());
+        this.actionsList.put("stop", new StopAction());
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             phrases = reader.lines().collect(Collectors.toList());
             writer = new PrintWriter(new FileOutputStream(fileName.replaceAll("/\\w+\\.txt$", "/chatLog.txt")));
@@ -23,21 +27,9 @@ public class Bot {
 
     public void startChatting() {
         String userInput = "";
-        boolean isStopped = false;
-
         while (!userInput.equals("exit")) {
-            if (isStopped) {
-                if (userInput.equals("continue")) {
-                    isStopped = false;
-                    respond();
-                }
-            } else {
-                if (userInput.equals("stop")) {
-                    isStopped = true;
-                } else {
-                    respond();
-                }
-            }
+            Optional<Action> a = Optional.ofNullable(this.actionsList.get(userInput));
+            a.orElse(this.actionsList.get("other")).execute();
             try {
                 userInput = this.input.getInput();
             } catch (IOException e) {
@@ -57,6 +49,28 @@ public class Bot {
         addToLog(response);
         if (this.input instanceof UserInput) {
             System.out.println(response);
+        }
+    }
+
+    private class StopAction implements Action {
+
+        public void execute() {
+            isStopped = true;
+        }
+    }
+
+    private class ContinueAction implements Action {
+
+        public void execute() {
+            isStopped = false;
+            respond();
+        }
+    }
+
+    private class OtherAction implements Action {
+
+        public void execute() {
+            if (!isStopped) respond();
         }
     }
 
