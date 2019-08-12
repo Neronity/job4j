@@ -47,7 +47,7 @@ public class SimpleTreeClass<E extends Comparable<E>> implements SimpleTree<E>, 
     public boolean isBinary() {
         Iterator<Node<E>> itr = new NodeItr();
         boolean result = true;
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             if (itr.next().leaves().size() > 2) {
                 result = false;
             }

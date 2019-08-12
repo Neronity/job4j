@@ -95,7 +95,8 @@
                             <configLocation>checkstyle.xml</configLocation>
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
-                            <failsOnError>true</failsOnError>
+                            <failsOnError>false</failsOnError>
+                            <failOnViolation>false</failOnViolation>
                             <includeTestSourceDirectory>true</includeTestSourceDirectory>
                         </configuration>
                         <goals>

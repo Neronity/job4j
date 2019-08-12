@@ -23,7 +23,7 @@ public class OracleServer {
                 if ("hello".equals(ask)) {
                     out.println("Hello, dear friend, I'm an oracle.");
                     out.println();
-                } else if (!"exit".equals(ask)){
+                } else if (!"exit".equals(ask)) {
                     out.println("Some wisely put phrase.");
                     out.println();
                 }

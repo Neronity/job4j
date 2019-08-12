@@ -8,23 +8,24 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import static org.hamcrest.Matchers.is;
 
 import static org.junit.Assert.*;
 
 public class AnalizeTest {
     private Analize a = new Analize();
-    private String target = "/Users/clutterfunk/Documents/GitHub/job4j/chapter_005/" +
-            "src/test/java/ru/job4j/io/unavailable/unavailable.csv";
-    private String source = "/Users/clutterfunk/Documents/GitHub/job4j/chapter_005/" +
-            "src/test/java/ru/job4j/io/unavailable/logs.log";
+    private String target = "/Users/clutterfunk/Documents/GitHub/job4j/chapter_005/"
+            + "src/test/java/ru/job4j/io/unavailable/unavailable.csv";
+    private String source = "/Users/clutterfunk/Documents/GitHub/job4j/chapter_005/"
+            + "src/test/java/ru/job4j/io/unavailable/logs.log";
 
     @Test
     public void whenAnalizeLogsThenCorrectOutput() {
         a.unavailable(source, target);
         List<String> result = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(target))) {
-             result = reader.lines().collect(Collectors.toList());
+            result = reader.lines().collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }

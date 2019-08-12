@@ -30,6 +30,8 @@ public class Args {
                 case "-o":
                     output = new File(current);
                     break;
+                default:
+
             }
         }
     }

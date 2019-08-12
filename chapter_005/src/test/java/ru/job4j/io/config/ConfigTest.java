@@ -6,8 +6,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class ConfigTest {
-    private Config conf = new Config("/Users/clutterfunk/Documents/GitHub" +
-            "/job4j/chapter_005/src/test/java/ru/job4j/io/config/app.properties");
+    private Config conf = new Config("/Users/clutterfunk/Documents/GitHub"
+            + "/job4j/chapter_005/src/test/java/ru/job4j/io/config/app.properties");
 
     @Test
     public void whenLoadFileThenMapFilled() {

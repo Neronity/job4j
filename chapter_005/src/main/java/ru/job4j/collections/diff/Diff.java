@@ -17,7 +17,7 @@ public class Diff {
         for (User u : previous) {
             String currentName = currentMap.get(u.id);
             if (currentName != null && !u.name.equals(currentName)) {
-                    info.changed++;
+                info.changed++;
             }
         }
         return info;
@@ -42,8 +42,12 @@ public class Diff {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof User)) return false;
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof User)) {
+                return false;
+            }
             User user = (User) o;
             return id == user.id;
         }
