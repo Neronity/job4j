@@ -28,7 +28,7 @@ public class SearchTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<File> result = s.files(tmpDir, Arrays.asList("txt", "cs"));
+        List<File> result = s.files(tmpDir + "/dir1", Arrays.asList("txt", "cs"));
         assertThat(result.size(), is(3));
         assertThat(result.stream().map(File::getName).collect(Collectors.toList()),
                 is(Arrays.asList("file1.txt", "file2.txt", "file2.cs")));
