@@ -27,7 +27,7 @@ public class Bot {
 
     public void startChatting() {
         String userInput = "";
-        while (!userInput.equals("exit")) {
+        while (!"exit".equals(userInput)) {
             Optional<Action> a = Optional.ofNullable(this.actionsList.get(userInput));
             a.orElse(this.actionsList.get("other")).execute();
             try {
