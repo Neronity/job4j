@@ -12,27 +12,15 @@ import static org.junit.Assert.*;
 
 public class SearchFilesTest {
     private String tmpDir = "src/test/java/ru/job4j/io/files/";
-    private File f1;
-    private File f2;
-    private File f3;
-    private File f4;
-    private File f5;
-    private File f6;
 
     {
         try {
-            f1 = new File(tmpDir + "SearchFilesTesting");
-            f1.mkdirs();
-            f2 = new File(tmpDir + "SearchFilesTesting/test.java");
-            f2.createNewFile();
-            f3 = new File(tmpDir + "SearchFilesTesting/test.txt");
-            f3.createNewFile();
-            f4 = new File(tmpDir + "SearchFilesTesting/SubSearchFilesTesting");
-            f4.mkdirs();
-            f5 = new File(tmpDir + "SearchFilesTesting/SubSearchFilesTesting/test2.java");
-            f5.createNewFile();
-            f6 = new File(tmpDir + "SearchFilesTesting/SubSearchFilesTesting/test3.csv");
-            f6.createNewFile();
+            new File(tmpDir + "SearchFilesTesting").mkdirs();
+            new File(tmpDir + "SearchFilesTesting/test.java").createNewFile();
+            new File(tmpDir + "SearchFilesTesting/test.txt").createNewFile();
+            new File(tmpDir + "SearchFilesTesting/SubSearchFilesTesting").mkdirs();
+            new File(tmpDir + "SearchFilesTesting/SubSearchFilesTesting/test2.java").createNewFile();
+            new File(tmpDir + "SearchFilesTesting/SubSearchFilesTesting/test3.csv").createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,7 +106,6 @@ public class SearchFilesTest {
 
     @Test
     public void whenSearchWithNoOutputThenConsoleOutput() {
-        List<String> result = null;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream outStream = new PrintStream(out);
         SearchFiles sf = new SearchFiles(
@@ -133,23 +120,9 @@ public class SearchFilesTest {
         assertThat(out.toString(), is(tmpDir + "SearchFilesTesting/test.java" + System.lineSeparator()));
     }
 
-    @Test
-    public void whenEmptySearchThenSendHelp() {
-        List<String> result = null;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        PrintStream outStream = new PrintStream(out);
-        SearchFiles sf = new SearchFiles(
-                new Args(new String[]{
-                        "-b",
-                        tmpDir + "SearchFilesTesting"
-                }), outStream);
-        sf.init();
-        assertThat(out.toString(), is("Invalid command. Use key -help for help." + System.lineSeparator()));
-    }
 
     @Test
     public void whenHelpThenDisplayHelp() {
-        List<String> result = null;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream outStream = new PrintStream(out);
         SearchFiles sf = new SearchFiles(

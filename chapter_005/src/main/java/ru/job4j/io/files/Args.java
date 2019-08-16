@@ -15,6 +15,10 @@ public class Args {
     private boolean isHelp = false;
 
     public Args(String[] args) {
+        parse(args);
+    }
+
+    private void parse(String[] args) {
         String lastKey = "";
         for (int i = 0; i < args.length; i++) {
             String current = args[i];

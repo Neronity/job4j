@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class SearchFiles {
-    private Args args;
-    private PrintStream userOutput;
+    final private Args args;
+    final private PrintStream userOutput;
 
     public SearchFiles(Args args, PrintStream userOutput) {
         this.args = args;
@@ -47,11 +47,7 @@ public class SearchFiles {
         if (this.args.isHelp()) {
             this.printHelp();
         } else {
-            try {
-                this.search();
-            } catch(NullPointerException ex) {
-                this.userOutput.println("Invalid command. Use key -help for help.");
-            }
+            this.search();
         }
     }
 
