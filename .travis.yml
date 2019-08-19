@@ -34,9 +34,6 @@ before_install:
   - sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf
   - sudo service postgresql restart 11
 
-script:
-  - psql -c "SELECT version();"
-
 
 env:
   global:
