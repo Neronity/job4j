@@ -11,13 +11,18 @@ sudo: false
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-# Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упала
+# Отправлять уведомление на почту если сборка упала
 notifications:
   email:
     recipients:
       -andrejjsigachev@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
+
+services:
+  - postgresql
+addons:
+  postgresql: "11.5"
 
 
 env:
