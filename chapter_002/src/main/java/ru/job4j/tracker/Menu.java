@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 public class Menu {
 
 	private Input input;
-	private Tracker tracker;
+	private ITracker tracker;
 	private final Consumer<String> output;
 
 	/**
@@ -15,7 +15,7 @@ public class Menu {
 	 */
 	public List<UserAction> actions = new ArrayList<>();
 
-	public Menu(Input input, Tracker tracker, Consumer<String> output) {
+	public Menu(Input input, ITracker tracker, Consumer<String> output) {
 		this.input = input;
 		this.tracker = tracker;
 		this.output = output;
@@ -61,7 +61,7 @@ public class Menu {
 			super(key, name);
 		}
 
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Input input, ITracker tracker) {
 			System.out.println("------------ Добавление новой заявки --------------");
         	String name = input.ask("Введите имя заявки :");
         	String desc = input.ask("Введите описание заявки :");
@@ -80,7 +80,7 @@ public class Menu {
 			super(key, name);
 		}
 
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Input input, ITracker tracker) {
 			System.out.println("------------ Замена существующей заявки --------------");
         	String id = input.ask("Введите уникальный ID заявки, которую хотите заменить:");
         	String name = input.ask("Введите имя новой заявки :");
@@ -100,7 +100,7 @@ public class Menu {
 			super(key, name);
 		}
 
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Input input, ITracker tracker) {
 			System.out.println("------------ Удаление существующей заявки --------------");
         	String id = input.ask("Введите уникальный ID заявки, которую хотите удалить:");
         	tracker.delete(id);
@@ -117,7 +117,7 @@ public class Menu {
 			super(key, name);
 		}
 
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Input input, ITracker tracker) {
 			System.out.println("------------ Поиск заявки по ID --------------");
         	String id = input.ask("Введите уникальный ID заявки, которую хотите найти:");
         	tracker.findById(id).showItemInfo();
@@ -133,7 +133,7 @@ public class Menu {
 			super(key, name);
 		}
 
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Input input, ITracker tracker) {
 			System.out.println("------------ Поиск заявки по имени --------------");
         	String name = input.ask("Введите полное имя заявки, которую хотите найти:");
         	for (Item i : tracker.findByName(name)) {
@@ -151,7 +151,7 @@ public class Menu {
 			super(key, name);
 		}
 
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Input input, ITracker tracker) {
 			String answer = input.ask("Вы уверены, что хотите выйти? y/n");
 			if ("y".equals(answer)) {
 				StartUI.exit = true;

@@ -12,7 +12,7 @@ public interface UserAction {
 	 * @param input способ ввода
 	 * @param tracker хранилище (трекер)
 	 */
-	void execute(Input input, Tracker tracker);
+	void execute(Input input, ITracker tracker);
 
 	/**
 	 * @return информация о команде для главного меню

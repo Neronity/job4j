@@ -7,7 +7,7 @@ public class GetAllItems extends BaseAction {
 		super(key, name);
 	}
 
-	public void execute(Input input, Tracker tracker) {
+	public void execute(Input input, ITracker tracker) {
 		for (Item item : tracker.getAll()) {
             	System.out.println("Имя: " + item.getName() + " ID " + item.getId());
         }

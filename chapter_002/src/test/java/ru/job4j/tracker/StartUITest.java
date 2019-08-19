@@ -36,7 +36,7 @@ public class StartUITest {
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         Input input = new StubInput(Arrays.asList("0", "test name", "desc", "6", "y"));
         new StartUI(input, tracker, output).init();
         assertThat(tracker.getAll().get(0).getName(), is("test name"));
@@ -44,7 +44,7 @@ public class StartUITest {
 
     @Test
     public void whenReplaceThenTrackerHasSameItemList() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         Item item = new Item("test", "test desc", null);
         String id = tracker.add(item);
         Input input = new StubInput(Arrays.asList("1", id, "test name", "desc", "6", "y"));
@@ -54,7 +54,7 @@ public class StartUITest {
 
     @Test
     public void whenDeleteItemThenTrackerHasRemainingItems() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         Item item = new Item("test", "test desc", null);
         String id = tracker.add(item);
         Item item1 = new Item("test1", "test1 desc", null);
@@ -67,7 +67,7 @@ public class StartUITest {
 
     @Test
     public void whenFindingByIdThenCorrectItem() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         Item item = new Item("test", "test desc", null);
         tracker.add(item);
         Item item1 = new Item("test1", "test1 desc", null);
@@ -79,7 +79,7 @@ public class StartUITest {
 
     @Test
     public void whenFindingByNameThenCorrectItem() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         Item item = new Item("test", "test desc", null);
         tracker.add(item);
         Item item1 = new Item("test1", "test1 desc", null);
@@ -108,7 +108,7 @@ public class StartUITest {
 
     @Test
     public void whenCreateItemThenText() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         Input input = new StubInput(Arrays.asList("0", "test name", "desc", "6", "y"));
         new StartUI(input, tracker, output).init();
         assertThat(new String(this.out.toByteArray()),
@@ -130,7 +130,7 @@ public class StartUITest {
 
     @Test
     public void whenReplaceItemThenText() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         tracker.add(new Item("test", "desc", null));
         Input input = new StubInput(Arrays.asList("1", tracker.getAll().get(0).getId(), "test name", "desc", "6", "y"));
         new StartUI(input, tracker, output).init();
@@ -153,7 +153,7 @@ public class StartUITest {
 
     @Test
     public void whenDeleteItemThenText() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         tracker.add(new Item("test", "desc", null));
         Input input = new StubInput(Arrays.asList("2", tracker.getAll().get(0).getId(), "6", "y"));
         new StartUI(input, tracker, output).init();
@@ -176,7 +176,7 @@ public class StartUITest {
 
     @Test
     public void whenFindingItemThenCorrectInfo() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         tracker.add(new Item("test", "desc", null));
         Input input = new StubInput(Arrays.asList("3", tracker.getAll().get(0).getId(), "6", "y"));
         new StartUI(input, tracker, output).init();
@@ -201,7 +201,7 @@ public class StartUITest {
 
     @Test
     public void whenFindingItemByNameThenCorrectInfo() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         tracker.add(new Item("test", "desc", null));
         Input input = new StubInput(Arrays.asList("4", tracker.getAll().get(0).getName(), "6", "y"));
         new StartUI(input, tracker, output).init();
@@ -226,7 +226,7 @@ public class StartUITest {
 
     @Test
     public void whenGetListOfItemsThenCorrectInfo() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         tracker.add(new Item("test", "desc", null));
         Input input = new StubInput(Arrays.asList("5", "6", "y"));
         new StartUI(input, tracker, output).init();
