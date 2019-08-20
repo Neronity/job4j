@@ -24,19 +24,15 @@ services:
 addons:
   postgresql: "11"
 
-before_script:
-  - echo "SELECT 'CREATE DATABASE trackersql_test' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'trackersql_test')\gexec" | psql -U postgres
-
 before_install:
   - sudo apt-get update
   - sudo apt-get --yes remove postgresql\*
   - sudo apt-get install -y postgresql-11 postgresql-client-11
   - sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf
   - sudo service postgresql restart 11
+  - echo "SELECT 'CREATE DATABASE trackersql_test' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'trackersql_test')\gexec" | psql -U postgres
 
 
 env:
   global:
-    - PGUSER=postgres
-    - PGPORT=5432
     - CODECOV_TOKEN="ab1b20f3-cf01-4aac-b153-4ecd884e2999"
