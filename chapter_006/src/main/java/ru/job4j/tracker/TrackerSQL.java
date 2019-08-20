@@ -15,61 +15,15 @@ import java.util.Properties;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
 
-    private Connection connection;
+    private final Connection connection;
     private static final Logger LOG = LogManager.getLogger(ExJob.class.getName());
 
-    public TrackerSQL(String resourceName) {
-        init(resourceName);
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
     }
 
-    public boolean init(String resourceName) {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream(resourceName)) {
-            Properties config = new Properties();
-            config.load(in);
-            Class.forName(config.getProperty("driver-class-name"));
-            this.connection = DriverManager.getConnection(
-                    config.getProperty("url"),
-                    config.getProperty("username"),
-                    config.getProperty("password")
-            );
-            createIfNotExists(config);
-        } catch (ClassNotFoundException | SQLException | IOException e) {
-            throw new IllegalStateException(e);
-        }
+    public boolean init() {
         return this.connection != null;
-    }
-
-    private void createIfNotExists(Properties config) throws SQLException {
-        String dbName = config.getProperty("data-base");
-        try (Statement st = this.connection.createStatement()) {
-            st.execute(String.format("CREATE DATABASE %s;", dbName));
-        } catch (SQLException e) {
-            if (e.getSQLState().equals("42P04")) {
-                LOG.log(Level.INFO, "Data Base already exists.");
-            } else {
-                e.printStackTrace();
-                System.out.println(e.getSQLState());
-
-            }
-        }
-        this.connection = DriverManager.getConnection(
-                String.format("%s%s", config.getProperty("url"), config.getProperty("data-base")),
-                config.getProperty("username"),
-                config.getProperty("password")
-        );
-
-        try (PreparedStatement st = this.connection.prepareStatement(
-                "CREATE TABLE items (id SERIAL PRIMARY KEY, i_name TEXT, i_desc TEXT);")) {
-            st.executeUpdate();
-        } catch (SQLException e) {
-            if (e.getSQLState().equals("42P07")) {
-                LOG.log(Level.INFO, "Table already exists.");
-            } else {
-                e.printStackTrace();
-                System.out.println(e.getSQLState());
-
-            }
-        }
     }
 
 
