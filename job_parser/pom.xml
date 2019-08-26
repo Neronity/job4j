@@ -33,7 +33,7 @@
                 <version>3.6.2</version>
                 <configuration>
                     <changeLogFile>${basedir}/db/master.xml</changeLogFile>
-                    <propertyFile>src/main/resources/app.properties</propertyFile>
+                    <propertyFile>src/main/resources/test.properties</propertyFile>
                 </configuration>
                 <executions>
                     <execution>
