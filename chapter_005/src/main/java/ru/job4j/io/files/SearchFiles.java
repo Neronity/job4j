@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class SearchFiles {
-    final private Args args;
-    final private PrintStream userOutput;
+    private final Args args;
+    private final PrintStream userOutput;
 
     public SearchFiles(Args args, PrintStream userOutput) {
         this.args = args;
