@@ -19,7 +19,6 @@ import java.util.Set;
 public class SqlRuReader {
 
     private int page;
-
     // Check for time limit (Quartz?)
     private final Set<Vacancy> vacancies = new HashSet<>();
 
