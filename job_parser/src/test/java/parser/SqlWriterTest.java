@@ -18,24 +18,7 @@ public class SqlWriterTest {
 
     @Test
     public void checkConnection() {
-        Properties p = new Properties();
-        Connection c = null;
-        try (InputStream in = SqlWriter.class.getClassLoader().getResourceAsStream("test.properties")) {
-            p.load(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            c = DriverManager.getConnection(p.getProperty("url"),
-                    p.getProperty("username"),
-                    p.getProperty("password"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        SqlWriter s = new SqlWriter(Arrays.asList(
-                new Vacancy("1", "2", "3", Timestamp.valueOf(LocalDateTime.now())),
-                new Vacancy("2", "3", "4", Timestamp.valueOf(LocalDateTime.now()))), c);
-        s.writeData();
+
     }
 
 }

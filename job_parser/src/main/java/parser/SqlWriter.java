@@ -9,11 +9,12 @@ import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 public class SqlWriter implements AutoCloseable {
 
     private final List<Vacancy> vacancies;
-    private final Logger LOG = LogManager.getLogger();
+    private final static Logger LOG = LogManager.getLogger();
     private Connection connection;
 
     public SqlWriter(List<Vacancy> vacancies, Connection connection) {

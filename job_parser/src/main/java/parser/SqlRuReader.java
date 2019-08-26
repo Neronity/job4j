@@ -13,36 +13,43 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class SqlRuReader {
 
-    private int page;
-    // Check for time limit (Quartz?)
-    private final Set<Vacancy> vacancies = new HashSet<>();
+    private int pageNum = 1;
+    private Elements currentPage;
+    private Iterator<Element> iter;
 
-    public Set<Vacancy> getVacancies() {
-        return vacancies;
+    private void readPage() throws IOException {
+        Document doc = Jsoup.connect(String.format("https://www.sql.ru/forum/job-offers/%s", this.pageNum)).get();
+        this.currentPage = doc.select(".forumTable tr .postslisttopic a:not(.pages):not(.newTopic)");
+        this.iter = this.currentPage.iterator();
+        this.pageNum++;
     }
 
-    public void readPage() throws IOException {
-        Document doc = Jsoup.connect(String.format("https://www.sql.ru/forum/job-offers/%s", this.page)).get();
-        Elements e = doc.select(".forumTable tr .postslisttopic a:not(.pages):not(.newTopic)");
-        for (Element el : e) {
+    public Vacancy getNextVacancy() throws IOException {
+        Vacancy result = null;
+        if (this.currentPage == null || !this.iter.hasNext()) {
+            readPage();
+        }
+        if (this.iter.hasNext()) {
+            Element el = iter.next();
             String name = el.text();
             String url = el.absUrl("href");
             if (name.matches("\\b(?i)java\\b?(?!Script)(?-i).*")) {
                 Element content = null;
                 content = Jsoup.connect(url).get()
                         .select("#content-wrapper-forum .msgTable").get(0);
-                this.vacancies.add(new Vacancy(name,
+                result = new Vacancy(name,
                         content.select("td.msgBody").get(1).text(),
                         url,
-                        this.parseDate(content.select("td.msgFooter").text().split("\\[")[0].trim())));
+                        this.parseDate(content.select("td.msgFooter").text().split("\\[")[0].trim()));
+            } else {
+                result = new Vacancy("", "", "empty", Timestamp.valueOf(LocalDateTime.now()));
             }
         }
-        this.page++;
+        return result;
     }
 
     private String getNumericMonth(String ruMonth) {
