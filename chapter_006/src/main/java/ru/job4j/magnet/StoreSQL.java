@@ -29,8 +29,9 @@ public class StoreSQL implements AutoCloseable {
         try (PreparedStatement st = this.connect.prepareStatement("INSERT INTO entries (value) VALUES (?);")) {
             for (int i = 1; i <= size; i++) {
                 st.setInt(1, i);
-                st.executeUpdate();
+                st.addBatch();
             }
+            st.executeBatch();
             this.connect.commit();
         } catch (SQLException e) {
             try {
