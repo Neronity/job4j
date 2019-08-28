@@ -55,6 +55,7 @@
         <module>chapter_005</module>
         <module>chapter_006</module>
         <module>job_parser</module>
+        <module>chapter_007</module>
     </modules>
 
     <dependencies>
