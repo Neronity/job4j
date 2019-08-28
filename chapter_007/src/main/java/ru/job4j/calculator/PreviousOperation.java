@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * Wrapper class for any operation. Сan not contain an instance of itself.
  */
-public class PreviousOperation implements Operation {
+public class PreviousOperation implements TrigonoOperation {
 
     private Operation prevOperation;
 
@@ -39,5 +39,13 @@ public class PreviousOperation implements Operation {
     @Override
     public String toString() {
         return "prev - last used operation.";
+    }
+
+
+    @Override
+    public double execute(double value) {
+        return ((TrigonoOperation) Optional.ofNullable(this.prevOperation)
+                .orElseThrow(() -> new IllegalArgumentException("There is no previous operation.")))
+                .execute(value);
     }
 }

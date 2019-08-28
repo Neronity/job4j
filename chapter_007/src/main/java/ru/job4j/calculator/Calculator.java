@@ -6,9 +6,9 @@ import java.util.*;
 Executing operations
  */
 public class Calculator {
-    private final Map<String, Operation> operations = new HashMap<>();
-    private PreviousOperation prevOperation;
-    private Double prevResult;
+    protected final Map<String, Operation> operations = new HashMap<>();
+    protected PreviousOperation prevOperation;
+    protected Double prevResult;
 
     /**
      * @return key of the previous operation (no need for optional: null will be caught before this code execution)

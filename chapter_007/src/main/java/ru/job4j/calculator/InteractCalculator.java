@@ -10,10 +10,10 @@ import java.util.Arrays;
  * User interaction with calculator
  */
 public class InteractCalculator implements AutoCloseable {
-    private final static Logger LOG = LogManager.getLogger();
-    private final Calculator calc;
-    private final PrintStream out;
-    private final InputStream in;
+    protected final static Logger LOG = LogManager.getLogger();
+    protected final Calculator calc;
+    protected final PrintStream out;
+    protected final InputStream in;
 
     /**
      * @param calc calculator, which will calculate user requests
@@ -35,7 +35,7 @@ public class InteractCalculator implements AutoCloseable {
     /**
      * Shows help (iterates over operations list in calculator)
      */
-    private void showHelp() {
+    protected void showHelp() {
         this.out.println("Calculation format: \'value1 operation value2\'");
         this.out.println("Example calculation: \'4 div 2\'.");
         this.out.println("Type \'res\' instead of value to use last calculated value.");
@@ -46,13 +46,10 @@ public class InteractCalculator implements AutoCloseable {
     /**
      * Shows calculated result for given user request.
      * Also show previously used operation.
-     * @param operation operation executing
-     * @param value1 first value for operation
-     * @param value2 second value for operation
      * @throws IllegalArgumentException in case of invalid data
      */
-    private void showResult(String operation, double value1, double value2) throws IllegalArgumentException {
-        this.out.println(String.format("Result: %s", this.calc.calculate(value1, value2, operation)));
+    protected void showResult(double d) {
+        this.out.println(String.format("Result: %s", d));
         this.out.println(String.format("Last used operation: %s", this.calc.getPrevOperation()));
     }
 
@@ -75,7 +72,7 @@ public class InteractCalculator implements AutoCloseable {
      * Checks user input and shows result if request was valid
      * @param input raw user input
      */
-    private void acceptInput(String input) {
+    protected void acceptInput(String input) throws IllegalArgumentException {
         try {
             String[] sArr = input.split(" ");
             if (sArr[0].equals("res")) {
@@ -84,7 +81,7 @@ public class InteractCalculator implements AutoCloseable {
             if (sArr[2].equals("res")) {
                 sArr[2] = String.valueOf(this.calc.getPrevResult());
             }
-            showResult(sArr[1], Double.parseDouble(sArr[0]), Double.parseDouble(sArr[2]));
+            showResult(this.calc.calculate(Double.parseDouble(sArr[0]), Double.parseDouble(sArr[2]), sArr[1]));
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             this.out.println("Wrong values.");
         } catch (IllegalArgumentException e) {
